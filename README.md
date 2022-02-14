@@ -37,7 +37,7 @@ Nous vous recommandons de creer vos propres variables d'environnement pour la co
 
 ```file
 password=your_password
-host=host
+host=your_host
 database=your_database
 ```
 
@@ -68,9 +68,9 @@ Mais nous vous conseillons de le faire avec l'application [Postman](https://www.
 
 ## DOCUMENTATION DE L'API
 
-Getting starter
+
 ## REFERENCE DE L'API
-Cet API a été déployé sur la plateforme Heroku et est disponible sous le lien https://capstoneapi.herokuapp.com
+Cet API a été déployé sur la plateforme Heroku et est disponible sous le lien https://gestion-bibliotheque-flask.herokuapp.com
 
 ## GESTION DES ERREURS
 Les erreurs sont rertournés sous le format JSON dont voici un exemple:
@@ -90,7 +90,7 @@ Voici les erreurs possibles que notre API pourrait retourner:
 
 ### GET /livres
     GENERAL:  Cette route retourne la liste des livres dans notre base de donnée, le statut de la requête  et le nombre total des livres.
-            Sample: curl https://capstoneapi.herokuapp.com/movies
+            Exemple: curl https://gestion-bibliotheque-flask.herokuapp.com/livres
 
             {
                 "Total": 10,
@@ -191,7 +191,7 @@ Voici les erreurs possibles que notre API pourrait retourner:
 
 ###  GET/livres(livre_id)
     GENERAL: Cette route vous permet d'avoir un livre à partir de son id si elle existe. Il retourne les informations concernant un livre, le statut de la requête et l'id du livre demandé.
-            Sample: curl https://capstoneapi.herokuapp.com/movies/1
+            Exemple: curl https://gestion-bibliotheque-flask.herokuapp.com/livres/3
 
             {
                 "Searched_book": {
@@ -210,7 +210,7 @@ Voici les erreurs possibles que notre API pourrait retourner:
 ###  GET /categories
     GENERAL: Cette route retourne la liste complète des catégories, le nombre total de categorie et le statut de la requête.
 
-            Sample: curl https://capstoneapi.herokuapp.com/actors
+            Exemple: curl https://gestion-bibliotheque-flask.herokuapp.com/categories
 
             {
                 "Categories": [
@@ -249,7 +249,7 @@ Voici les erreurs possibles que notre API pourrait retourner:
 
 ###  GET/categories(categorie_id)
     GENERAL: Cette route retourne les informations d'une categorie à partir de son id si elle existe, le statut de la requête et l'id de la categorie recherché
-            Sample: curl https://capstoneapi.herokuapp.com/actors/1
+            Exemple: curl https://gestion-bibliotheque-flask.herokuapp.com/categories/2
 
             {
                 "Success": true,
@@ -261,159 +261,115 @@ Voici les erreurs possibles que notre API pourrait retourner:
             }
 
 
+###  DELETE/categorie(categorie_id)
+    GENERAL: Cette route permet de supprrimer, si elle existe, une categorie dont l'id est passé en paramètre. Il retourne les informations de la categorie modifié, son id et le statut de la requête.
+
+            Exemple: curl - X DELETE https://gestion-bibliotheque-flask.herokuapp.com/categories/8
+            {
+                "Deleted_Categorie": {
+                    "id": 8,
+                    "libelle": "philosophique"
+                },
+                "Success": true,
+                "Total_categorie": 7
+            }
+
+
 ###  DELETE/livres(livre_id)
-    GENERAL: Cette route permet de supprimer, si elle existe, un livre dont l'id est spécifié. Il retourne l
+            GENERAL: Cette route supprime, si elle existe, un livre dont l'id est passé en paramètre. Il retourne les informations concernant le livre supprimé, son id et le statut de la requête.
 
-            Sample: curl - X DELETE https://capstoneapi.herokuapp.com/actors/5
+            Exemple: curl - X DELETE https://gestion-bibliotheque-flask.herokuapp.com/livres/5
+
             {
-                "actors": [
-                    {
-                        "age": 32,
-                        "gender": "M",
-                        "id": 1,
-                        "name": "Badiou OURO"
-                    }
-                ],
-                "deleted": 5,
-                "success": true,
-                "total_actors": 1
+                "Deleted_book": {
+                    "auteur": "Amadou koné",
+                    "categorie_id": 4,
+                    "date_publication": "Thu, 20 Jun 1991 00:00:00 GMT",
+                    "editeur": "Edicef",
+                    "id": 5,
+                    "isbn": "125-30-234",
+                    "titre": "La guerre civile"
+                },
+                "Success": true,
+                "Total_books": 9
             }
 
 
-###  DELETE/movies(movie_id)
-            GENERAL: Delete the movie  of the given ID if it exists. Return the id of the deleted movie, 
-            success value, total of movies and movies list based on current page number. Results are
-             paginated in groups of 10.
-
-            Sample: curl - X DELETE https://capstoneapi.herokuapp.com/movies/5
-
-            {
-        "actors": [
-            {
-                "id": 1,
-                "release_date": "Fri, 09 Mar 2001 00:00:00 GMT",
-                "title": "Thomas NGIJOL"
-            }
-        ],
-        "deleted": 3,
-        "success": true,
-        "total_movies": 1
-    }
-
-
-###  POST/movies
+###  GET /categories/(categories_id)/livres
     GENERAL: This endpoint is used to create a new movie. We return the ID of the new movie created, 
     the movie that was created, the list of movies and the number of movies.
 
-            Sample: curl -X POST https://capstoneapi.herokuapp.com/movies 
-            -H "Content-Type:application/json" -d "{"title":"Casanova","release_date":"2020-12-02"}"
-
-                {    
-            "movies": [
-                {
-                    "id": 1,
-                    "release_date": "Fri, 09 Mar 2001 00:00:00 GMT",
-                    "title": "Thomas NGIJOL"
-                },
-                {
-                    "id": 4,
-                    "release_date": "Wed, 02 Dec 2020 00:00:00 GMT",
-                    "title": "Casanova"
-                }
-            ],
-            "created": 4,
-            "success": true,
-            "total_movies": 2
-            }
-
-
-
-###  POST/actors
-    GENERAL: This endpoint is used to create a new actor. We return the ID of the new actor 
-    created, the movie that was created, the list of actors and the number of actors.
-
-            Sample: curl -X POST https://capstoneapi.herokuapp.com/actors 
-            -H "Content-Type:application/json" -d "{"name":"Jamel Debouzze","age":45,"gender":"M"}"
+            Exemple: curl  https://gestion-bibliotheque-flask.herokuapp.com/categories/4/livres
 
                 {
-                    "actors": [
+                    "Livres": [
                         {
-                            "age": 32,
-                            "gender": "M",
-                            "id": 1,
-                            "name": "Badiou OURO"
+                            "auteur": "Amadou koné",
+                            "categorie_id": 4,
+                            "date_publication": "Thu, 12 Apr 1990 00:00:00 GMT",
+                            "editeur": "Edicef",
+                            "id": 3,
+                            "isbn": "1202-3456-345",
+                            "titre": "Les frasques d Ebinto"
                         },
                         {
-                            "age": 45,
-                            "gender": "M",
-                            "id": 6,
-                            "name": "Jamel Debouzze"
+                            "auteur": "Amadou koné",
+                            "categorie_id": 4,
+                            "date_publication": "Fri, 12 Jun 1992 00:00:00 GMT",
+                            "editeur": "Edicef",
+                            "id": 4,
+                            "isbn": "125-345-34",
+                            "titre": "Le respect des morts"
                         },
                         {
-                            "age": 45,
-                            "gender": "M",
-                            "id": 7,
-                            "name": "Jamel Debouzze"
-                        },
-                        {
-                            "age": 45,
-                            "gender": "M",
-                            "id": 8,
-                            "name": "Jamel Debouzze"
+                            "auteur": "Amadou koné",
+                            "categorie_id": 4,
+                            "date_publication": "Thu, 20 Jun 1991 00:00:00 GMT",
+                            "editeur": "Edicef",
+                            "id": 5,
+                            "isbn": "125-30-234",
+                            "titre": "La guerre civile"
                         }
                     ],
-                    "created": 8,
-                    "success": true,
-                    "total_actors": 4
+                    "Success": true,
+                    "Total": 3,
+                    "categorie_id": 4
                 }
 
 
-###  PATCH/actors(actor_id)
-    GENERAL: This endpoint allows you to modify an actor. It returns the modified actor,
-     the actor ID that was modified and status_code
+###  PATCH/livres(livre_id)
+    GENERAL: Cette route vous permet de modifier les informations d'un livre dont l'id est passé en paramètre. Il retourne les informations du livre modifié, son id et le statut de la requête
 
-            Sample: curl -X PATCH https://capstoneapi.herokuapp.com/actors/1 
-            -H "Content-Type:application/json" -d "{"name":"Badiou OURO","gender":"M","age":32}"
-
-                {
-                    "actor": [
-                        {
-                            "age": 32,
-                            "gender": "M",
-                            "id": 1,
-                            "name": "Badiou OURO"
-                        }
-                    ],
-                    "id": 1,
-                    "success": true
-                    }
-
-
-###  PATCH/movie(movie_id)
-    GENERAL: This endpoint allows you to modify an movie. It returns the modified movie, 
-    the movie ID that was modified and status_code
-
-            Sample: curl -X PATCH https://capstoneapi.herokuapp.com/movie/1 
-            -H "Content-Type:application/json" -d "{"title":"Thomas NGIJOL","release_date":"2001-03-09"}"
+            Exemple: curl -X PATCH https://gestion-bibliotheque-flask.herokuapp.com/livres/1
+            -H "Content-Type:application/json" -d "{"auteur": "Caleb ADOGLI","categorie_id": 1,"date_publication": "Wed, 01 Jan 2020 00:00:00 GMT","editeur": "Les contes des milles et une nuit","isbn": "123-12-23","titre": "La mort du soldat"}"
 
                 {
-                    "id": 1,
-                    "movie": [
-                        {
-                            "id": 1,
-                            "release_date": "Fri, 09 Mar 2001 00:00:00 GMT",
-                            "title": "Thomas NGIJOL"
-                        }
-                    ],
-                    "success": true
-                    }
+                    "Success": true,
+                    "Updated_book": {
+                        "auteur": "Caleb ADOGLI",
+                        "categorie_id": 1,
+                        "date_publication": "Wed, 01 Jan 2020 00:00:00 GMT",
+                        "editeur": "Les contes des milles et une nuit",
+                        "id": 1,
+                        "isbn": "123-12-23",
+                        "titre": "La mort du soldat"
+                    },
+                    "Updated_book_id": 1
+                }
 
 
+###  PATCH/categories (categorie_id)
+    GENERAL: cette route vous permet de modifier les informations d'une catgories dont l'id est passé en paramètre. Il retoune les informations de la categorie modifié, son id et le statut de la requette.
 
-##  Testing using capstonedb_test
-To run the tests, run
-```
-dropdb capstonedb_test
-createdb capstonedb_test
-python test_app.py
-```
+            Exemple: curl -X PATCH https://capstoneapi.herokuapp.com/movie/1 
+            -H "Content-Type:application/json" -d "{"libelle_categorie":"comédie"}"
+
+                {
+                    "Success": true,
+                    "Updated_category": {
+                        "id": 3,
+                        "libelle": "comédie"
+                    },
+                    "Updated_category_id": 3
+                }
+

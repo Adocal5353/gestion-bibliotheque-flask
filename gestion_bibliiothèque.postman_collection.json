@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "03d63119-3d0e-4c78-af50-8b12fb5cfef3",
+		"name": "gestion_bibliiothèque",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tous_les_livres",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Tous_les_categories",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Selectionner_categorie",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "selectionner_livre",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "lister_categorie_de_livre",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "supprimer_livre",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "supprimer_categorie",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "modifier_livre",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n                            \"libelle_categorie\": \"amour\"\n                        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gestion-bibliotheque-flask.herokuapp.com/livres/1",
+					"protocol": "https",
+					"host": [
+						"gestion-bibliotheque-flask",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"livres",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "                        {\n                            \"libelle_categorie\": \"amour\"\n                        }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://gestion-bibliotheque-flask.herokuapp.com/categories/3",
+					"protocol": "https",
+					"host": [
+						"gestion-bibliotheque-flask",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"categories",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
