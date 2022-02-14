@@ -99,6 +99,47 @@ db.create_all()
 def index():
     abort(400)
 
+# add a book
+@app.route('/livres',methods=['POST'])
+def add_books():
+    body=request.get_json()
+    try:
+        new_isbn=body.get('isbn',None)
+        new_titre=body.get('titre',None)
+        new_date_publication=body.get('date_publication',None)
+        new_auteur=body.get('auteur',None)
+        new_editeur=body.get('editeur',None)
+        new_categorie_id=body.get('categorie_id',None)
+        livre = Livre(isbn=new_isbn,titre=new_titre,date_publication=new_date_publication,auteur=new_auteur,editeur=new_editeur,categorie_id=new_categorie_id)
+        livre.insert()
+        return jsonify({
+            'Success':True,
+            'Created_book_id':livre.id,
+            'Created_book':livre.format()
+            })
+    except:
+        db.session.rollback()
+        abort(400)
+    finally:
+        db.session.close()
+
+#add a categorie
+@app.route('/categories',methods=['POST'])
+def add_categorie():
+    body=request.get_json()
+    try:
+        new_libelle_categorie=body.get('libelle_categorie',None)  
+        categorie = Categorie(libelle_categorie=new_libelle_categorie)
+        return jsonify({
+            'Success':True,
+            'Created_category_id':categorie.id,
+            'Created_category':categorie.format()
+            })
+    except:
+        db.session.rollback()
+    finally:
+        db.session.close()
+
 ###########################################################
 #
 #cette route donne la liste de tous les livres
