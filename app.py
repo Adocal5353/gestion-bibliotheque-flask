@@ -12,8 +12,9 @@ app = Flask(__name__)
 password=os.getenv('password')
 host = os.getenv('host')
 database = os.getenv('database')
+user = os.getenv('user')
 #motdepasse = quote_plus('caleb1234')
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:{}@{}:5432/{}".format(password,host,database)
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://{}:{}@{}:5432/{}".format(user,password,host,database)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
