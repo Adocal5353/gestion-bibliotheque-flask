@@ -9,7 +9,7 @@ load_dotenv()
 app = Flask(__name__)
 
 
-password=quote_plus(os.getenv('password'))
+password=os.getenv('password')
 host = os.getenv('host')
 database = os.getenv('database')
 #motdepasse = quote_plus('caleb1234')
