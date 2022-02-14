@@ -130,6 +130,7 @@ def add_categorie():
     try:
         new_libelle_categorie=body.get('libelle_categorie',None)  
         categorie = Categorie(libelle_categorie=new_libelle_categorie)
+        categorie.insert()
         return jsonify({
             'Success':True,
             'Created_category_id':categorie.id,
